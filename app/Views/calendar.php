@@ -146,8 +146,8 @@
       </v-sheet>
     </v-col>
   </v-row>
-  <div align="right" @click="linkCreatePage">
-    <v-btn elevation="2">Create</v-btn>
+  <div align="right">
+    <v-btn elevation="2" @click="linkCreatePage">Create</v-btn>
   </div>
   </div>
 </template>
