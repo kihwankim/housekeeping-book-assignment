@@ -7,8 +7,9 @@ new Vue({
         description: '',
         date: new Date().toISOString().substr(0, 10),
         menu: false,
-        modal: false,
         menu2: false,
+        time: null,
+        menu3: false,
         inputRules: [
             v => v.length >= 2 || 'Minimum length is 3 character'
         ],

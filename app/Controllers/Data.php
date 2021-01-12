@@ -31,7 +31,13 @@ class Data extends ResourceController
         if($this->request->getMethod() == 'post')
         {
             $houseKeepingModel = new HouseKeepModel();
-            $houseKeepingModel->save($_POST);
+            print_r($_POST);
+            $houseKeepData = [
+                'price' => $_POST['price'],
+                'description' => $_POST['description'],
+                'use_at' => $_POST['use_at']." ".$_POST['time'].":00"
+            ];
+            $houseKeepingModel->save($houseKeepData);
         }
         return redirect()->to('/housekeeping-book/public/index.php/home/');
     }
