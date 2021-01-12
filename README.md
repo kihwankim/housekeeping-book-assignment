@@ -15,5 +15,17 @@
 * 항목 추가
 * 항목 삭제
 
+### DB 구조
+* ID(PK)
+* 사용날
+* 설명
+* 금액
+
 ### 구현적 요구사항
 * vuetify 캘린더 컴포넌트 사용
+
+### 메인 화면
+<img width="1439" alt="main화면" src="https://user-images.githubusercontent.com/19687080/104290550-d2801300-54fd-11eb-9afa-3b003f2fffa4.png">
+
+### 가계부 추가 화면
+<img width="1140" alt="create화면" src="https://user-images.githubusercontent.com/19687080/104290571-d875f400-54fd-11eb-9a68-aff4d15d9109.png">
