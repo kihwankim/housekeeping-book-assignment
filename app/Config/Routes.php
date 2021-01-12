@@ -32,6 +32,14 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+$routes->group('home', function($routes) {
+	$routes->get('new', 'Home::createNewDataPage');
+});
+
+$routes->group('data', function($routes) {
+	$routes->get('housekeeps', 'Data::findByYearAndMonth');
+	$routes->post('new', 'Data::createNewHouseKeepingBook');
+});
 /**
  * --------------------------------------------------------------------
  * Additional Routing

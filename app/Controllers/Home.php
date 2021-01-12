@@ -4,9 +4,11 @@ class Home extends BaseController
 {
 	public function index()
 	{
-		return view('welcome_message');
+		return view('calendar');
 	}
 
-	//--------------------------------------------------------------------
-
+	public function createNewDataPage()
+	{
+		return view('new');
+	}
 }
