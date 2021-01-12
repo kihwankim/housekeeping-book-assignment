@@ -40,10 +40,9 @@ new Vue({
       },
       next () {
         this.$refs.calendar.next()
-        // ajax로 가져오기 -> 다음달 데이터 가져오기
       },
       showEvent ({ nativeEvent, event }) {
-        // ajax for getting event -> id로 가져오기
+        this.nowId = event.id;
         const open = () => {
           this.selectedEvent = event
           this.selectedElement = nativeEvent.target
@@ -76,7 +75,8 @@ new Vue({
               color: this.colors[this.rnd(0, this.colors.length - 1)],
               timed: false,
               id: element.id,
-              name: element.description
+              name: element.description,
+              price: element.price 
             });
           });
           this.events = events;
@@ -85,6 +85,9 @@ new Vue({
       },
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
+      },
+      linkEditPage() {
+        window.location.href=`./edit/${this.nowId}`;
       },
     }
   })

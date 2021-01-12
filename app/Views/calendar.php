@@ -116,7 +116,7 @@
               :color="selectedEvent.color"
               dark
             >
-              <v-btn icon>
+              <v-btn icon @click="linkEditPage">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
@@ -129,7 +129,8 @@
               </v-btn>
             </v-toolbar>
             <v-card-text>
-              <span v-html="selectedEvent.details"></span>
+              <span v-html="selectedEvent.price"></span>
+              <span>원</span>
             </v-card-text>
             <v-card-actions>
               <v-btn
