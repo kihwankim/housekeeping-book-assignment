@@ -31,15 +31,57 @@ class Data extends ResourceController
         if($this->request->getMethod() == 'post')
         {
             $houseKeepingModel = new HouseKeepModel();
-            print_r($_POST);
             $houseKeepData = [
                 'price' => $_POST['price'],
                 'description' => $_POST['description'],
-                'use_at' => $_POST['use_at']." ".$_POST['time'].":00"
+                'use_at' => combineDateAndTime($_POST['use_at'], $_POST['time'])
             ];
             $houseKeepingModel->save($houseKeepData);
         }
         return redirect()->to('/housekeeping-book/public/index.php/home/');
+    }
+
+    public function deleteById($id)
+    {
+        header('Access-Control-Allow-Origin: *');
+		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+
+        $houseKeepingModel = new HouseKeepModel();
+        $houseKeepData = $houseKeepingModel->find($id);
+        
+        if($houseKeepData){
+            $houseKeepingModel->delete($id);
+            return $this->respondDeleted($houseKeepData);
+        }
+        
+        return $this->failNotFound($id);
+    }
+
+    public function editHouseKeepData()
+    {
+        header('Access-Control-Allow-Origin: *');
+		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+
+        if($this->request->getMethod() == 'post')
+        {
+            $houseKeepingModel = new HouseKeepModel();
+            print_r($_POST);
+            $houseKeepData = [
+                'id' => $_POST['id'],
+                'price' => $_POST['price'],
+                'description' => $_POST['description'],
+                'use_at' => combineDateAndTime($_POST['use_at'], $_POST['time'])
+            ];
+            // $houseKeepingModel->save($houseKeepData);
+            print_r($houseKeepData);
+        }           
+    }
+
+    private function combineDateAndTime($date, $time)
+    {
+        return $date." ".$time.":00";
     }
 }
 ?>

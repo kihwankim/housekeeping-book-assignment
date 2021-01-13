@@ -34,11 +34,13 @@ $routes->get('/', 'Home::index');
 
 $routes->group('home', function($routes) {
 	$routes->get('new', 'Home::createNewDataPage');
+	$routes->get('edit/(:any)', 'Home::editDataPage');
 });
 
 $routes->group('data', function($routes) {
 	$routes->get('housekeeps', 'Data::findByYearAndMonth');
 	$routes->post('new', 'Data::createNewHouseKeepingBook');
+	$routes->delete('delete/(:any)', 'Data::deleteById/$1');
 });
 /**
  * --------------------------------------------------------------------

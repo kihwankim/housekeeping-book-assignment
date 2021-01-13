@@ -120,13 +120,6 @@
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
             </v-toolbar>
             <v-card-text>
               <span v-html="selectedEvent.price"></span>
@@ -139,6 +132,13 @@
                 @click="selectedOpen = false"
               >
                 Cancel
+              </v-btn>
+              <v-btn
+                text
+                color="secondary"
+                @click="requestDeleteData"
+              >
+                Delete
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -155,6 +155,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-<script src="../../js/calendar.js"></script>
+<script src="../js/calendar.js"></script>
 </body>
 </html>
