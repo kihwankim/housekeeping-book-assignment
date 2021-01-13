@@ -29,3 +29,9 @@
 
 ### 가계부 추가 화면
 <img width="1140" alt="create화면" src="https://user-images.githubusercontent.com/19687080/104290571-d875f400-54fd-11eb-9a68-aff4d15d9109.png">
+
+### 수정 페이지
+<img width="1437" alt="edit 화면" src="https://user-images.githubusercontent.com/19687080/104400934-8fbe4980-5596-11eb-8953-cb9bf8b8a59a.png">
+
+### detail 페이지
+<img width="1440" alt="디테일 화면" src="https://user-images.githubusercontent.com/19687080/104400961-9c42a200-5596-11eb-9cb2-fcb1bbd84a50.png">
