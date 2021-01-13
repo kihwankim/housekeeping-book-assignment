@@ -24,12 +24,10 @@ class Data extends ResourceController
         header('Access-Control-Allow-Origin: *');
 		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
 		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-        $year = $this->request->getVar("year");
-        $month = $this->request->getVar("month");
         $houseKeepingModel = new HouseKeepModel();
-        // $monthData = $houseKeepingModel->where('year(use_at)', $year)->where('month(use_at)', $month)->findAll();
         $monthData = $houseKeepingModel->findAll();
         $data['events'] = $monthData;
+        
         return $this->respond($data);
     }
 

@@ -59,7 +59,7 @@ new Vue({
         nativeEvent.stopPropagation()
       },
       updateRange ({ start, end }) {
-        fetch(`http://localhost/housekeeping-book/public/index.php/data/housekeeps?year=${this.year}&month=${this.month}`)
+        fetch(`http://localhost/housekeeping-book/public/index.php/data/housekeeps`)
         .then(res => {
           if(res.ok){
             return res.json();
