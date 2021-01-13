@@ -11,4 +11,9 @@ class Home extends BaseController
 	{
 		return view('new');
 	}
+
+	public function editDataPage($id)
+	{
+		return view('edit_write');
+	}
 }

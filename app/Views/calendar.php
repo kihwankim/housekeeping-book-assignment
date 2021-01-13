@@ -120,13 +120,6 @@
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
             </v-toolbar>
             <v-card-text>
               <span v-html="selectedEvent.price"></span>
@@ -140,14 +133,21 @@
               >
                 Cancel
               </v-btn>
+              <v-btn
+                text
+                color="secondary"
+                @click="requestDeleteData"
+              >
+                Delete
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-menu>
       </v-sheet>
     </v-col>
   </v-row>
-  <div align="right" @click="linkCreatePage">
-    <v-btn elevation="2">Create</v-btn>
+  <div align="right">
+    <v-btn elevation="2" @click="linkCreatePage">Create</v-btn>
   </div>
   </div>
 </template>

@@ -86,6 +86,31 @@ new Vue({
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
       },
+      requestDeleteData() {
+        fetch(`http://localhost/housekeeping-book/public/index.php/data/delete/${this.nowId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+          }
+        })
+        .then(res => {
+          if(res.ok){
+            return res.json();
+          }
+          throw new Error("Network reponse was not ok");
+        })
+        .then(json => {
+          const events = [];
+          this.events.forEach(element => {
+            if(element.id != json.id){
+              events.push(element);
+            }
+          })
+          this.events = events;
+          this.selectedOpen = false;
+        })
+        .catch(error => {console.log(error)});
+      },
       linkEditPage() {
         window.location.href=`./edit/${this.nowId}`;
       },
