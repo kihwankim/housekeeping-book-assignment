@@ -8,6 +8,17 @@ class Data extends ResourceController
 {
     use ResponseTrait;
 
+    public function findById($id)
+    {
+        header('Access-Control-Allow-Origin: *');
+		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        $houseKeepingModel = new HouseKeepModel();
+        $houseKeepDataById = $houseKeepingModel->find($id);
+        $data['housekeep'] = $houseKeepDataById;
+        return $this->respond($data);
+    }
+
     public function findByYearAndMonth()
     {
         header('Access-Control-Allow-Origin: *');
@@ -34,7 +45,7 @@ class Data extends ResourceController
             $houseKeepData = [
                 'price' => $_POST['price'],
                 'description' => $_POST['description'],
-                'use_at' => combineDateAndTime($_POST['use_at'], $_POST['time'])
+                'use_at' => $this->combineDateAndTime($_POST['use_at'], $_POST['time'])
             ];
             $houseKeepingModel->save($houseKeepData);
         }
@@ -67,16 +78,16 @@ class Data extends ResourceController
         if($this->request->getMethod() == 'post')
         {
             $houseKeepingModel = new HouseKeepModel();
-            print_r($_POST);
             $houseKeepData = [
                 'id' => $_POST['id'],
                 'price' => $_POST['price'],
                 'description' => $_POST['description'],
-                'use_at' => combineDateAndTime($_POST['use_at'], $_POST['time'])
+                'use_at' => $this->combineDateAndTime($_POST['use_at'], $_POST['time'])
             ];
-            // $houseKeepingModel->save($houseKeepData);
-            print_r($houseKeepData);
-        }           
+            $houseKeepingModel->save($houseKeepData);
+        }
+        
+        return redirect()->to('/housekeeping-book/public/index.php/home/');
     }
 
     private function combineDateAndTime($date, $time)
