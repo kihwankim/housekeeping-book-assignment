@@ -45,9 +45,12 @@ class Data extends ResourceController
                 'description' => $_POST['description'],
                 'use_at' => $this->combineDateAndTime($_POST['use_at'], $_POST['time'])
             ];
-            $houseKeepingModel->save($houseKeepData);
+            $result = $houseKeepingModel->insert($houseKeepData);
+
+            return $this->respondCreated($result);
         }
-        return redirect()->to('/housekeeping-book/public/index.php/home/');
+        
+        throw new \CodIgniter\Database\Exception\DatabaseException();
     }
 
     public function deleteById($id)

@@ -17,13 +17,14 @@ new Vue({
       selectedOpen: false,
       events: [],
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
+      BASE_URL: 'http://localhost/housekeeping-book/public/index.php'
     },
     mounted () {
       this.$refs.calendar.checkChange();
     },
     methods: {
       linkCreatePage() {
-        window.location.href='./new';
+        window.location.href=`${this.BASE_URL}/home/new`;
       },
       viewDay ({ date }) {
         this.focus = date
@@ -59,7 +60,7 @@ new Vue({
         nativeEvent.stopPropagation()
       },
       updateRange ({ start, end }) {
-        fetch(`http://localhost/housekeeping-book/public/index.php/data/housekeeps`)
+        fetch(`${this.BASE_URL}/data/housekeeps`)
         .then(res => {
           if(res.ok){
             return res.json();
@@ -87,7 +88,7 @@ new Vue({
         return Math.floor((b - a + 1) * Math.random()) + a
       },
       requestDeleteData() {
-        fetch(`http://localhost/housekeeping-book/public/index.php/data/delete/${this.nowId}`, {
+        fetch(`${this.BASE_URL}/data/delete/${this.nowId}`, {
           method: 'DELETE',
           headers: {
             'Content-type': 'application/json; charset=UTF-8'

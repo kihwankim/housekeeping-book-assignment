@@ -22,8 +22,7 @@
         <v-form class="px-3" 
             v-model="valid" 
             ref="form" 
-            method="post" 
-            action="../data/new">
+        >
             
             <v-text-field
                 v-model="price"
@@ -127,8 +126,8 @@
             </v-row>
             <v-btn
             class="mr-4"
-            type="submit"
             :disabled="!valid"
+            @click="createNewHouseKeepData"
             >
             submit
             </v-btn>
@@ -141,6 +140,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-<script src="../../js/new.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="http://localhost/housekeeping-book/public/js/new.js"></script>
 </body>
 </html>
