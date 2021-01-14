@@ -113,7 +113,7 @@ new Vue({
         .catch(error => {console.log(error)});
       },
       linkEditPage() {
-        window.location.href=`./edit/${this.nowId}`;
+        window.location.href=`${this.BASE_URL}/home/edit/${this.nowId}`;
       },
     }
   })
