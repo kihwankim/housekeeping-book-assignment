@@ -22,8 +22,7 @@
         <v-form class="px-3" 
             v-model="valid" 
             ref="form" 
-            method="post" 
-            action="../../data/edit">
+        >
             <v-text-field v-model="id" name="id" hidden>
             </v-text-field>
             <v-text-field
@@ -127,9 +126,9 @@
                 </v-col>
             </v-row>
             <v-btn
-            class="mr-4"
-            type="submit"
-            :disabled="!valid"
+                class="mr-4"
+                :disabled="!valid"
+                @click="editHouseKeepData"
             >
             submit
             </v-btn>
@@ -142,6 +141,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="http://localhost/housekeeping-book/public/js/edit_write.js"></script>
 </body>
 </html>

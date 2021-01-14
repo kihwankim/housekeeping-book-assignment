@@ -17,11 +17,12 @@ new Vue({
         isPriceRule: [
             v => (/^[0-9]*$/.test(v) && !isNaN(v) && parseInt(v) >= 0) || 'Please insert Number'
         ],
+        BASE_URL: 'http://localhost/housekeeping-book/public/index.php'
     },
     created: function() {
         const data = location.pathname.split('/');
         const id = data[data.length - 1];
-        fetch(`http://localhost/housekeeping-book/public/index.php/data/housekeep/${id}`)
+        fetch(`${this.BASE_URL}/data/housekeep/${id}`)
           .then(res => {
             if(res.ok){
               return res.json();
@@ -37,5 +38,22 @@ new Vue({
             this.time = splitedDateAndTime[1];
           })
           .catch(error => {console.log(error)});
+    },
+    methods: {
+      editHouseKeepData() {
+        const form = new FormData();
+        form.append("id", this.id);
+        form.append("price", this.price);
+        form.append("use_at", this.date);
+        form.append("time", this.time);
+        form.append("description", this.description);
+        axios.post(`${this.BASE_URL}/data/edit`, form)
+          .then(res => {
+            window.location.href = `${this.BASE_URL}/home`;
+          })
+          .catch(error => {
+            alert("error for adding new board");
+          });
     }
+  }
 })

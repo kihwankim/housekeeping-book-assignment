@@ -86,9 +86,11 @@ class Data extends ResourceController
                 'use_at' => $this->combineDateAndTime($_POST['use_at'], $_POST['time'])
             ];
             $houseKeepingModel->save($houseKeepData);
+            
+            return $this->respondCreated($_POST['id']);
         }
         
-        return redirect()->to('/housekeeping-book/public/index.php/home/');
+        return $this->failNotFound($_POST['id']);
     }
 
     private function combineDateAndTime($date, $time)
