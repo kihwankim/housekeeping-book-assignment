@@ -60,6 +60,10 @@ new Vue({
         nativeEvent.stopPropagation()
       },
       updateRange ({ start, end }) {
+        const firstDay = new Date(start.date);
+        const year = firstDay.getFullYear();
+        const month = firstDay.getMonth() + 1;
+        console.log(month);
         fetch(`${this.BASE_URL}/data/housekeeps`)
         .then(res => {
           if(res.ok){
@@ -73,7 +77,7 @@ new Vue({
             events.push({
               start: element.use_at,
               end: element.use_at,
-              color: this.colors[this.rnd(0, this.colors.length - 1)],
+              color: this.colors[element.id % this.colors.length],
               timed: false,
               id: element.id,
               name: element.description,
@@ -84,33 +88,23 @@ new Vue({
         })
         .catch(error => {console.log(error)});
       },
-      rnd (a, b) {
-        return Math.floor((b - a + 1) * Math.random()) + a
-      },
       requestDeleteData() {
-        fetch(`${this.BASE_URL}/data/delete/${this.nowId}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-          }
-        })
-        .then(res => {
-          if(res.ok){
-            return res.json();
-          }
-          throw new Error("Network reponse was not ok");
-        })
-        .then(json => {
-          const events = [];
-          this.events.forEach(element => {
-            if(element.id != json.id){
-              events.push(element);
-            }
+        if(confirm('Are you super deleting this housekeeping data')){
+        axios.delete(`${this.BASE_URL}/data/delete/${this.nowId}`)
+          .then(res => {
+            const events = [];
+            this.events.forEach(element => {
+              if(element.id != res.data.id){
+                events.push(element);
+              }
+            })
+            this.events = events;
+            this.selectedOpen = false;
           })
-          this.events = events;
-          this.selectedOpen = false;
-        })
-        .catch(error => {console.log(error)});
+          .catch(error => {
+            alert("It can not be deleted");
+          });
+        }
       },
       linkEditPage() {
         window.location.href=`${this.BASE_URL}/home/edit/${this.nowId}`;

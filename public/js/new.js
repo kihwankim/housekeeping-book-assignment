@@ -10,13 +10,16 @@ new Vue({
         menu2: false,
         time: null,
         menu3: false,
-        inputRules: [
-            v => v.length >= 2 || 'Minimum length is 3 character'
-        ],
-        isPriceRule: [
-            v => (/^[0-9]*$/.test(v) && !isNaN(v) && parseInt(v) >= 0) || 'Please insert Number'
-        ],
+        rules: {
+            minLengthOfStr: v => v.length >= 1 || 'Minimum length is 1 character',
+            maxLengthOfStr: v => v.length <= 150 || 'Exceeded maximum length description',
+            isPriceRule: v => (/^[0-9]*$/.test(v) && !isNaN(v) && parseInt(v) >= 0) || 'Please insert Number', 
+        },
         BASE_URL: 'http://localhost/housekeeping-book/public/index.php'
+    },
+    created() {
+        const day = new Date();
+        this.time = day.getHours() + ":" + day.getMinutes();
     },
     methods: {
         createNewHouseKeepData() {

@@ -13,8 +13,10 @@
 
 <div id="app">
 <template>
-  <div data-app>
-    <v-card>
+<v-app>
+<div style="text-align: center; vertical-align: middle;">
+    <div style="width:50%; display:inline-table; text-align: right; max-width: 700px; min-width: 100px" data-app>
+      <v-card class="elevation-2">
         <v-card-title>
             <h2>Edit The House Keeping Data</h2>
         </v-card-title>
@@ -30,14 +32,15 @@
                 label="Price"
                 required
                 name="price"
-                :rules="isPriceRule"
+                :rules="[rules.isPriceRule]"
             ></v-text-field>
             <v-text-field
                 v-model="description"
                 label="Description"
                 required
                 name="description"
-                :rules="inputRules"
+                counter='150'
+                :rules="[rules.minLengthOfStr, rules.maxLengthOfStr]"
             ></v-text-field>
             <v-row>
                 <v-col
@@ -134,8 +137,9 @@
             </v-btn>
         </v-form>
         </v-card-text>
-    </v-card>
+      </v-card>
     </div>
+  </div>
 </template>
 </div>
 

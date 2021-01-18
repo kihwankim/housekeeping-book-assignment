@@ -13,6 +13,7 @@
 
 <div id="app">
 <template>
+  <v-app>
   <div data-app>
   <v-row class="fill-height">
     <v-col>
@@ -150,11 +151,13 @@
     <v-btn elevation="2" @click="linkCreatePage">Create</v-btn>
   </div>
   </div>
+  </v-app>
 </template>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="http://localhost/housekeeping-book/public/js/calendar.js"></script>
 </body>
 </html>
