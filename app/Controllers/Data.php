@@ -10,9 +10,6 @@ class Data extends ResourceController
 
     public function findById($id)
     {
-        header('Access-Control-Allow-Origin: *');
-		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         $houseKeepingModel = new HouseKeepModel();
         $houseKeepDataById = $houseKeepingModel->find($id);
         $data['housekeep'] = $houseKeepDataById;
@@ -21,9 +18,6 @@ class Data extends ResourceController
 
     public function findByYearAndMonth()
     {
-        header('Access-Control-Allow-Origin: *');
-		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         $houseKeepingModel = new HouseKeepModel();
         $monthData = $houseKeepingModel->findAll();
         $data['events'] = $monthData;
@@ -33,10 +27,6 @@ class Data extends ResourceController
 
     public function createNewHouseKeepingBook()
     {
-        header('Access-Control-Allow-Origin: *');
-		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-        
         if($this->request->getMethod() == 'post')
         {
             $houseKeepingModel = new HouseKeepModel();
@@ -55,10 +45,6 @@ class Data extends ResourceController
 
     public function deleteById($id)
     {
-        header('Access-Control-Allow-Origin: *');
-		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-
         $houseKeepingModel = new HouseKeepModel();
         $houseKeepData = $houseKeepingModel->find($id);
         
@@ -72,10 +58,6 @@ class Data extends ResourceController
 
     public function editHouseKeepData()
     {
-        header('Access-Control-Allow-Origin: *');
-		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-
         if($this->request->getMethod() == 'post')
         {
             $houseKeepingModel = new HouseKeepModel();
