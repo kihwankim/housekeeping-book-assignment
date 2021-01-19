@@ -106,5 +106,17 @@ new Vue({
       linkEditPage() {
         window.location.href=`${this.BASE_URL}/home/edit/${this.nowId}`;
       },
+      sumOfMoney() {
+        let sum = 0;
+        this.events.forEach(element => {
+          if(element.spentType == 0){
+            sum += Number(element.price);
+          }else{
+            sum -= Number(element.price);
+          }
+        });
+
+        return sum;
+      }
     }
   })

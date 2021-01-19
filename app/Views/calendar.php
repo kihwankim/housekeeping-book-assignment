@@ -55,6 +55,10 @@
             {{ $refs.calendar.title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
+          <v-toolbar-title>
+            월 누적 금액 : {{ sumOfMoney() }}
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
           <v-menu
             bottom
             right
