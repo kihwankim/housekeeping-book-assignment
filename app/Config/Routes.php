@@ -38,7 +38,7 @@ $routes->group('home', function($routes) {
 });
 
 $routes->group('data', function($routes) {
-	$routes->get('housekeeps', 'Data::findByYearAndMonth');
+	$routes->get('housekeeps/(:any)/(:any)', 'Data::findByStartDateAndEndDate/$1/$2');
 	$routes->get('housekeep/(:any)', 'Data::findById/$1');
 	$routes->post('new', 'Data::createNewHouseKeepingBook');
 	$routes->post('edit', 'Data::editHouseKeepData');

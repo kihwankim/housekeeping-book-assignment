@@ -16,7 +16,7 @@ new Vue({
       selectedElement: null,
       selectedOpen: false,
       events: [],
-      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
+      colors: ['orange', 'cyan', 'blue', 'indigo', 'deep-purple', 'green', 'grey darken-1'],
       BASE_URL: 'http://localhost/housekeeping-book/public/index.php'
     },
     mounted () {
@@ -60,11 +60,7 @@ new Vue({
         nativeEvent.stopPropagation()
       },
       updateRange ({ start, end }) {
-        const firstDay = new Date(start.date);
-        const year = firstDay.getFullYear();
-        const month = firstDay.getMonth() + 1;
-        console.log(month);
-        fetch(`${this.BASE_URL}/data/housekeeps`)
+        fetch(`${this.BASE_URL}/data/housekeeps/${start.date}/${end.date}`)
         .then(res => {
           if(res.ok){
             return res.json();
@@ -77,11 +73,12 @@ new Vue({
             events.push({
               start: element.use_at,
               end: element.use_at,
-              color: this.colors[element.id % this.colors.length],
+              color: this.colors[element.spent_type % this.colors.length],
               timed: false,
               id: element.id,
               name: element.description,
-              price: element.price 
+              price: element.price ,
+              spentType: element.spent_type,
             });
           });
           this.events = events;
@@ -90,20 +87,20 @@ new Vue({
       },
       requestDeleteData() {
         if(confirm('Are you super deleting this housekeeping data')){
-        axios.delete(`${this.BASE_URL}/data/delete/${this.nowId}`)
-          .then(res => {
-            const events = [];
-            this.events.forEach(element => {
-              if(element.id != res.data.id){
-                events.push(element);
-              }
+          axios.delete(`${this.BASE_URL}/data/delete/${this.nowId}`)
+            .then(res => {
+              const events = [];
+              this.events.forEach(element => {
+                if(element.id != res.data.id){
+                  events.push(element);
+                }
+              })
+              this.events = events;
+              this.selectedOpen = false;
             })
-            this.events = events;
-            this.selectedOpen = false;
-          })
-          .catch(error => {
-            alert("It can not be deleted");
-          });
+            .catch(error => {
+              alert("It can not be deleted");
+            });
         }
       },
       linkEditPage() {

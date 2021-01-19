@@ -8,6 +8,9 @@ class Data extends ResourceController
 {
     use ResponseTrait;
 
+    private $startTime = "00:00:00";
+    private $endTime = "23:59:59";
+
     public function findById($id)
     {
         $houseKeepingModel = new HouseKeepModel();
@@ -16,11 +19,16 @@ class Data extends ResourceController
         return $this->respond($data);
     }
 
-    public function findByYearAndMonth()
+    public function findByStartDateAndEndDate($startDate, $endDate)
     {
+        $startDatetime = $this->combineDateAndTime($startDate, $this->startTime);
+        $endDatetime = $this->combineDateAndTime($endDate, $this->endTime);
         $houseKeepingModel = new HouseKeepModel();
-        $monthData = $houseKeepingModel->findAll();
+        $monthData = $houseKeepingModel
+                ->where('use_at >=', $startDatetime)->where('use_at <=', $endDatetime)->find();
         $data['events'] = $monthData;
+        $data['start'] = $startDatetime;
+        $data['end'] = $endDatetime;
         
         return $this->respond($data);
     }
@@ -33,7 +41,8 @@ class Data extends ResourceController
             $houseKeepData = [
                 'price' => $_POST['price'],
                 'description' => $_POST['description'],
-                'use_at' => $this->combineDateAndTime($_POST['use_at'], $_POST['time'])
+                'use_at' => $this->combineDateAndTime($_POST['use_at'], $_POST['time'].":00"),
+                'spent_type' => $_POST['spent_type']
             ];
             $result = $houseKeepingModel->insert($houseKeepData);
 
@@ -65,7 +74,8 @@ class Data extends ResourceController
                 'id' => $_POST['id'],
                 'price' => $_POST['price'],
                 'description' => $_POST['description'],
-                'use_at' => $this->combineDateAndTime($_POST['use_at'], $_POST['time'])
+                'use_at' => $this->combineDateAndTime($_POST['use_at'], $_POST['time'].":00"),
+                'spent_type' => $_POST['spent_type']
             ];
             $houseKeepingModel->save($houseKeepData);
             
@@ -77,7 +87,7 @@ class Data extends ResourceController
 
     private function combineDateAndTime($date, $time)
     {
-        return $date." ".$time.":00";
+        return $date." ".$time;
     }
 }
 ?>

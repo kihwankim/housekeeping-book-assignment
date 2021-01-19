@@ -11,6 +11,8 @@ new Vue({
         menu2: false,
         time: null,
         menu3: false,
+        combboxData:['earn', 'pay'],
+        comboResult: '',
         rules: {
           minLengthOfStr: v => v.length >= 1 || 'Minimum length is 1 character',
           maxLengthOfStr: v => v.length <= 150 || 'Exceeded maximum length description',
@@ -19,6 +21,7 @@ new Vue({
         BASE_URL: 'http://localhost/housekeeping-book/public/index.php'
     },
     created: function() {
+        
         const data = location.pathname.split('/');
         const id = data[data.length - 1];
         fetch(`${this.BASE_URL}/data/housekeep/${id}`)
@@ -35,6 +38,7 @@ new Vue({
             const splitedDateAndTime = json.housekeep.use_at.split(" ");
             this.date = splitedDateAndTime[0];
             this.time = splitedDateAndTime[1];
+            this.comboResult = this.combboxData[json.housekeep.spent_type];
           })
           .catch(error => {console.log(error)});
       const day = new Date();
@@ -43,6 +47,7 @@ new Vue({
     methods: {
       editHouseKeepData() {
         const form = new FormData();
+        form.append("spent_type", this.comboResult === 'earn' ? 0 : 1)
         form.append("id", this.id);
         form.append("price", this.price);
         form.append("use_at", this.date);
