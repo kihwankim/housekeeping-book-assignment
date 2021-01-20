@@ -56,7 +56,7 @@
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-title>
-            월 누적 금액 : {{ sumOfMoney() }}
+            {{ type }} 누적 금액 : {{ sumOfMoney() }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-menu
@@ -130,7 +130,7 @@
               <span v-html="selectedEvent.price"></span>
               <span>원</span>
               <br/>
-              <span v-html="selectedEvent.spentType"></span>
+              <span v-html="(selectedEvent.spentType == 0 ? 'earn' : 'pay')"></span>
             </v-card-text>
             <v-card-actions>
               <v-btn
