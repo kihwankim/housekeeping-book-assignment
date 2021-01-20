@@ -129,6 +129,8 @@
             <v-card-text>
               <span v-html="selectedEvent.price"></span>
               <span>원</span>
+              <br/>
+              <span v-html="selectedEvent.spentType"></span>
             </v-card-text>
             <v-card-actions>
               <v-btn

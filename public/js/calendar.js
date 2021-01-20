@@ -78,7 +78,7 @@ new Vue({
               id: element.id,
               name: element.description,
               price: element.price ,
-              spentType: element.spent_type,
+              spentType: (element.spent_type == 0)? 'earn' : 'pay',
             });
           });
           this.events = events;
