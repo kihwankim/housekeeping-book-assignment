@@ -8,42 +8,41 @@ class Data extends ResourceController
 {
     use ResponseTrait;
 
+    private $startTime = "00:00:00";
+    private $endTime = "23:59:59";
+
     public function findById($id)
     {
-        header('Access-Control-Allow-Origin: *');
-		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         $houseKeepingModel = new HouseKeepModel();
         $houseKeepDataById = $houseKeepingModel->find($id);
         $data['housekeep'] = $houseKeepDataById;
         return $this->respond($data);
     }
 
-    public function findByYearAndMonth()
+    public function findByStartDateAndEndDate($startDate, $endDate)
     {
-        header('Access-Control-Allow-Origin: *');
-		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        $startDatetime = $this->combineDateAndTime($startDate, $this->startTime);
+        $endDatetime = $this->combineDateAndTime($endDate, $this->endTime);
         $houseKeepingModel = new HouseKeepModel();
-        $monthData = $houseKeepingModel->findAll();
+        $monthData = $houseKeepingModel
+                ->where('use_at >=', $startDatetime)->where('use_at <=', $endDatetime)->find();
         $data['events'] = $monthData;
+        $data['start'] = $startDatetime;
+        $data['end'] = $endDatetime;
         
         return $this->respond($data);
     }
 
     public function createNewHouseKeepingBook()
     {
-        header('Access-Control-Allow-Origin: *');
-		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-        
         if($this->request->getMethod() == 'post')
         {
             $houseKeepingModel = new HouseKeepModel();
             $houseKeepData = [
                 'price' => $_POST['price'],
                 'description' => $_POST['description'],
-                'use_at' => $this->combineDateAndTime($_POST['use_at'], $_POST['time'])
+                'use_at' => $this->combineDateAndTime($_POST['use_at'], $_POST['time'].":00"),
+                'spent_type' => $_POST['spent_type']
             ];
             $result = $houseKeepingModel->insert($houseKeepData);
 
@@ -55,10 +54,6 @@ class Data extends ResourceController
 
     public function deleteById($id)
     {
-        header('Access-Control-Allow-Origin: *');
-		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-
         $houseKeepingModel = new HouseKeepModel();
         $houseKeepData = $houseKeepingModel->find($id);
         
@@ -72,10 +67,6 @@ class Data extends ResourceController
 
     public function editHouseKeepData()
     {
-        header('Access-Control-Allow-Origin: *');
-		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-
         if($this->request->getMethod() == 'post')
         {
             $houseKeepingModel = new HouseKeepModel();
@@ -83,7 +74,8 @@ class Data extends ResourceController
                 'id' => $_POST['id'],
                 'price' => $_POST['price'],
                 'description' => $_POST['description'],
-                'use_at' => $this->combineDateAndTime($_POST['use_at'], $_POST['time'])
+                'use_at' => $this->combineDateAndTime($_POST['use_at'], $_POST['time'].":00"),
+                'spent_type' => $_POST['spent_type']
             ];
             $houseKeepingModel->save($houseKeepData);
             
@@ -95,7 +87,7 @@ class Data extends ResourceController
 
     private function combineDateAndTime($date, $time)
     {
-        return $date." ".$time.":00";
+        return $date." ".$time;
     }
 }
 ?>

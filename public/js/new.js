@@ -10,6 +10,8 @@ new Vue({
         menu2: false,
         time: null,
         menu3: false,
+        combboxData:['earn', 'pay'],
+        comboResult: '',
         rules: {
             minLengthOfStr: v => v.length >= 1 || 'Minimum length is 1 character',
             maxLengthOfStr: v => v.length <= 150 || 'Exceeded maximum length description',
@@ -18,12 +20,14 @@ new Vue({
         BASE_URL: 'http://localhost/housekeeping-book/public/index.php'
     },
     created() {
+        this.comboResult = this.combboxData[0];        
         const day = new Date();
         this.time = day.getHours() + ":" + day.getMinutes();
     },
     methods: {
         createNewHouseKeepData() {
             const form = new FormData();
+            form.append("spent_type", this.comboResult === 'earn' ? 0 : 1)
             form.append("price", this.price);
             form.append("use_at", this.date);
             form.append("time", this.time);

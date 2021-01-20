@@ -41,16 +41,18 @@
 create table housekeepingbook(
 	id int primary key auto_increment,
 	use_at datetime default CURRENT_TIMESTAMP NOT NULL,
+    spent_type int,
     price int,
     description varchar(150)
 );
 
-insert into housekeepingbook(use_at, price, description) 
-	values("2021-01-02 11:13:55", 1500, "간식"),
-    ("2021-01-12 11:14:55", 5500, "밥"),
-    ("2021-01-20 11:43:55", 11500, "술"),
-    ("2021-01-23 12:13:55", 21500, "간식"),
-    ("2021-01-02 11:33:55", 4500, "밥"),
-    ("2021-01-17 16:13:55", 8500, "밥"),
-    ("2021-01-11 17:13:55", 3500, "간식");
+insert into housekeepingbook(use_at, price, description, spent_type) 
+	values("2021-01-02 11:13:55", 1500, "간식", 1),
+    ("2021-01-12 11:14:55", 5500, "밥", 1),
+    ("2021-01-20 11:43:55", 11500, "술", 1),
+    ("2021-01-23 12:13:55", 21500, "간식", 1),
+    ("2021-01-02 11:33:55", 4500, "밥", 1),
+    ("2021-01-17 16:13:55", 8500, "밥", 1),
+    ("2021-01-11 17:13:55", 3500, "간식", 1),
+    ("2021-01-15 15:31:55", 2000000, "인턴 실습비", 0);
 ```

@@ -14,6 +14,7 @@
 <div id="app">
 <template>
 <v-app>
+<v-container>
 <div style="text-align: center; vertical-align: middle;">
     <div style="width:50%; display:inline-table; text-align: right; max-width: 700px; min-width: 100px" data-app>
       <v-card class="elevation-2">
@@ -126,6 +127,14 @@
                     ></v-time-picker>
                 </v-menu>
                 </v-col>
+                <v-col>
+                    <v-select
+                        v-model="comboResult"
+                        :items="combboxData"
+                        required
+                        label="pay type"
+                    ></v-select>
+                </v-col>
             </v-row>
             <v-btn
             class="mr-4"
@@ -139,6 +148,7 @@
     </v-card>
     </div>
   </div>
+  </v-container>
 </v-app>
 </template>
 </div>
