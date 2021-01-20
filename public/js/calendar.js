@@ -86,7 +86,7 @@ new Vue({
         .catch(error => {console.log(error)});
       },
       requestDeleteData() {
-        if(confirm('Are you super deleting this housekeeping data')){
+        if(confirm('Are you sure deleting this housekeeping data')){
           axios.delete(`${this.BASE_URL}/data/delete/${this.nowId}`)
             .then(res => {
               const events = [];
