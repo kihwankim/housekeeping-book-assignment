@@ -5,12 +5,20 @@ new Vue({
       year: '',
       month: '',
       focus: '',
+      absolute: true,
+      overlay: false,
       type: 'month',
       typeToLabel: {
         month: 'Month',
         week: 'Week',
         day: 'Day',
         '4day': '4 Days',
+      },
+      koreanCharacterTypeToLabel: {
+        month: '월',
+        week: '주',
+        day: '일',
+        '4day': '4 일'
       },
       selectedEvent: {},
       selectedElement: null,

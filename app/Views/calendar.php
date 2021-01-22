@@ -55,10 +55,6 @@
             {{ $refs.calendar.title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-toolbar-title>
-            {{ type }} 누적 금액 : {{ sumOfMoney() }}
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
           <v-menu
             bottom
             right
@@ -154,8 +150,38 @@
     </v-col>
   </v-row>
   <div align="right">
+    <v-btn
+      @click="overlay = !overlay"
+      elevation="2"
+    >
+      Summary
+    </v-btn>
     <v-btn elevation="2" @click="linkCreatePage">Create</v-btn>
   </div>
+  <v-overlay
+    :absolute="absolute"
+    :value="overlay"
+    :dark=false
+    :light=true
+  >
+    <v-container>
+      <div style="background-color: white; height: 110px; width: 300px; border-radius: 10px" align="center">
+        <div class="mt-5">
+        <v-toolbar-title>
+          {{ koreanCharacterTypeToLabel[type] }} 누적 금액 : {{ sumOfMoney() }}
+        </v-toolbar-title>
+        </div>
+        <br/>
+        <div align="right" class="mr-3">
+          <v-btn
+            @click="overlay = false"
+          >
+              Close
+          </v-btn>
+        </div>
+      </div>
+    </v-container>
+  </v-overlay>
   </div>
   </v-app>
 </template>
