@@ -25,7 +25,7 @@ class Data extends ResourceController
         $endDatetime = $this->combineDateAndTime($endDate, $this->endTime);
         $houseKeepingModel = new HouseKeepModel();
         $monthData = $houseKeepingModel
-                ->where('use_at >=', $startDatetime)->where('use_at <=', $endDatetime)->find();
+                ->where('use_at >=', $startDatetime)->where('use_at <=', $endDatetime)->orderBy('use_at')->find();
         $data['events'] = $monthData;
         $data['start'] = $startDatetime;
         $data['end'] = $endDatetime;
