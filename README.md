@@ -47,6 +47,9 @@
 ### delete
 <img width="1435" alt="delete check" src="https://user-images.githubusercontent.com/19687080/105119286-58f6af00-5b13-11eb-9e6f-a97d1824bdc3.png">
 
+### 가계부 집계 modal창
+<img width="1440" alt="ui변경 집계" src="https://user-images.githubusercontent.com/19687080/105471873-922f4a80-5cde-11eb-8336-16ec03940714.png">
+
 ### database 구조
 ```sql
 create table housekeepingbook(
