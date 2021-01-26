@@ -1,161 +1,88 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-  <meta charset="utf-8"/>
-  <title>housekeeping data</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta charset="utf-8" />
+    <title>housekeeping data</title>
 </head>
+
 <body>
 
-<div id="app">
-<template>
-<v-app>
-<v-container>
-<div style="text-align: center; vertical-align: middle;">
-    <div style="width:50%; display:inline-table; text-align: right; max-width: 700px; min-width: 100px" data-app>
-      <v-card class="elevation-2">
-        <v-card-title>
-            <h2>Add a New House Keeping Data</h2>
-        </v-card-title>
-        <v-card-text>
-        <v-form class="px-3" 
-            v-model="valid" 
-            ref="form" 
-        >
-            
-            <v-text-field
-                v-model="price"
-                label="Price"
-                required
-                name="price"
-                :rules="[rules.isPriceRule]"
-            ></v-text-field>
-            <v-text-field
-                v-model="description"
-                label="Description"
-                required
-                counter='150'
-                name="description"
-                :rules="[rules.minLengthOfStr, rules.maxLengthOfStr]"
-            ></v-text-field>
-            <v-row>
-                <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                >
-                    <v-menu
-                    ref="menuDate"
-                    v-model="menu"
-                    :close-on-content-click="false"
-                    :return-value.sync="date"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                    >
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                        v-model="date"
-                        name="use_at"
-                        label="Picker in menu"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                        ></v-text-field>
-                    </template>
-                    <v-date-picker
-                        v-model="date"
-                        no-title
-                        scrollable
-                        name="use_at"
-                    >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="menu = false"
-                    >
-                        Cancel
-                    </v-btn>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="$refs.menuDate.save(date)"
-                    >
-                        OK
-                    </v-btn>
-                    </v-date-picker>
-                    </v-menu>
-                </v-col>
+    <div id="app">
+        <template>
+            <v-app>
+                <v-container data-app class="col-md-10 col-sm-12 col-lg-5 col-xl-5">
+                    <v-card class="elevation-2">
+                        <v-card-title class="d-flex justify-center">
+                            <h2>Add a New House Keeping Data</h2>
+                        </v-card-title>
+                        <v-card-text>
+                            <v-form class="px-3" v-model="valid" ref="form">
+                                <v-text-field v-model="price" label="Price" required name="price"
+                                    :rules="[rules.isPriceRule]"></v-text-field>
+                                <v-text-field v-model="description" label="Description" required counter='150'
+                                    name="description" :rules="[rules.minLengthOfStr, rules.maxLengthOfStr]">
+                                </v-text-field>
+                                <v-row>
+                                    <v-col cols="11" sm="6" md="4">
+                                        <v-menu ref="menuDate" v-model="menu" :close-on-content-click="false"
+                                            :return-value.sync="date" transition="scale-transition" offset-y
+                                            min-width="auto">
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field v-model="date" name="use_at" label="Picker in menu"
+                                                    prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                                </v-text-field>
+                                            </template>
+                                            <v-date-picker v-model="date" no-title scrollable name="use_at">
+                                                <v-spacer></v-spacer>
+                                                <v-btn text color="primary" @click="menu = false">
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn text color="primary" @click="$refs.menuDate.save(date)">
+                                                    OK
+                                                </v-btn>
+                                            </v-date-picker>
+                                        </v-menu>
+                                    </v-col>
 
-                <v-col
-                    cols="11"
-                    sm="5"
-                >
-                <v-menu
-                    ref="menu"
-                    v-model="menu3"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    :return-value.sync="time"
-                    transition="scale-transition"
-                    offset-y
-                    max-width="290px"
-                    min-width="290px"
-                >
-                    <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                        v-model="time"
-                        name="time"
-                        label="Picker in menu"
-                        prepend-icon="mdi-clock-time-four-outline"
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                    ></v-text-field>
-                    </template>
-                    <v-time-picker
-                    v-if="menu3"
-                    v-model="time"
-                    full-width
-                    @click:minute="$refs.menu.save(time)"
-                    ></v-time-picker>
-                </v-menu>
-                </v-col>
-                <v-col>
-                    <v-select
-                        v-model="comboResult"
-                        :items="combboxData"
-                        required
-                        label="pay type"
-                    ></v-select>
-                </v-col>
-            </v-row>
-            <v-btn
-            class="mr-4"
-            :disabled="!valid"
-            @click="createNewHouseKeepData"
-            >
-            submit
-            </v-btn>
-        </v-form>
-        </v-card-text>
-    </v-card>
+                                    <v-col cols="11" sm="5" md="4">
+                                        <v-menu ref="menu" v-model="menu3" :close-on-content-click="false"
+                                            :nudge-right="40" :return-value.sync="time" transition="scale-transition"
+                                            offset-y max-width="290px" min-width="290px">
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field v-model="time" name="time" label="Picker in menu"
+                                                    prepend-icon="mdi-clock-time-four-outline" readonly v-bind="attrs"
+                                                    v-on="on"></v-text-field>
+                                            </template>
+                                            <v-time-picker v-if="menu3" v-model="time" full-width
+                                                @click:minute="$refs.menu.save(time)"></v-time-picker>
+                                        </v-menu>
+                                    </v-col>
+                                    <v-col cols="11" sm="5" md="4">
+                                        <v-select v-model="comboResult" :items="combboxData" required label="pay type">
+                                        </v-select>
+                                    </v-col>
+                                </v-row>
+                                <v-btn class="mr-4" :disabled="!valid" @click="createNewHouseKeepData">
+                                    submit
+                                </v-btn>
+                            </v-form>
+                        </v-card-text>
+                    </v-card>
+                </v-container>
+            </v-app>
+        </template>
     </div>
-  </div>
-  </v-container>
-</v-app>
-</template>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="http://localhost/housekeeping-book/public/js/new.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="http://localhost/housekeeping-book/public/js/new.js"></script>
 </body>
+
 </html>
